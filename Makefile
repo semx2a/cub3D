@@ -3,89 +3,290 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/08 19:48:37 by abonard           #+#    #+#              #
-#    Updated: 2023/01/05 16:39:49 by abonard          ###   ########.fr        #
+#    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
+#    Updated: 2023/01/05 16:53:09 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NC = \033[0m
-RED = \033[0;91m
-ORANGE = \033[93m
-GREEN = \033[0;92m
-PURPLE = \033[0;95m
-BLUE = \033[0;34m
-BOLD = \033[1m
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PATHS::
 
-SRCS		=	./srcs/main.c \
-				./srcs/ft_parcing.c \
-				./srcs/ft_parcing_utils.c \
-				./srcs/ft_init.c \
-				./srcs/ft_getcolors.c \
-				./srcs/ft_mapparcer.c \
-				./srcs/ft_mapparcer_utils.c \
-				./srcs/ft_keycodes.c \
-				./srcs/ft_general_utils.c \
-				./srcs/ft_raycast.c \
-				./srcs/ft_texture.c \
-				./srcs/ft_get_texture.c \
-				./srcs/ft_move.c
+PROJ	:=	cub3d_dir
 
+ODIR	:=	$(addprefix $(PROJ)/,objs)
 
-INCLUDES	=	./libft/inc/libft.h \
-				./inc/cub3d.h \
+SDIR	:=	$(addprefix $(PROJ)/,srcs)
 
-HEAD		= ./inc/
+IDIR	:=	$(addprefix $(PROJ)/,inc)
 
-MLX 		= minilibx-linux/libmlx_Linux.a
+BODIR	:=	$(addprefix $(PROJ)/,objs_bonus)
 
-MLX_DIR		= ./minilibx-linux/
+BDIR	:=	$(addprefix $(PROJ)/,bonus)
 
-LIBFT		= ./libft/libft.a
+LDIR 	:=	libft
 
-LIB_DIR		= ./libft/
+PFDIR	:=	ft_printf
 
-NAME		= cub3d
+MDIR	:=	minilibx
 
-CC			= clang
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::TARGET::
 
-OBJS		= ${SRCS:.c=.o}
+NAME	:=	cub3d
 
-RM			= rm -f
+BNAME	:=	cub3d_bonus
 
-CFLAGS		= -Wall -Wextra -Werror -g
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-LFLAGS		= -lm -lX11 -lXext -lbsd
+SRCS	:=	ft_general_utils.c \
+			ft_getcolors.c \
+			ft_get_texture.c \
+			ft_init.c \
+			ft_keycodes.c \
+			ft_mapparcer.c \
+			ft_mapparcer_utils.c \
+			ft_move.c \
+			ft_parcing.c \
+			ft_parcing_utils.c \
+			ft_raycast.c \
+			ft_texture.c \
+			main.c
 
-#LINK		= -I /usr/X11/include -g -L /usr/X11/lib -lX11 -lmlx -lXext
+OBJS	=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
-.c.o:
-		@${CC} ${CFLAGS} -I${HEAD} -c $< -o ${<:.c=.o}
-		@echo "${GREEN}[ OK ]	${ORANGE}${<:.s=.o}${NC}"
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BONUS::
 
-all:		${NAME}
+BSRCS	:= 
 
-${NAME}:	${OBJS}
-			@make -C ${LIB_DIR}
-			@make -C ${MLX_DIR}
-			@echo "${GREEN}\nlibft.a		has been created"
-			@echo "${GREEN}\nlibmlx_Linux.a	has been created"
-			@${CC} ${CFLAGS} ${LFLAGS} -I${HEAD} -o ${NAME} $(OBJS) ${LIBFT} ${MLX}
-			@echo "cub3d		has been created\n${NC}"
+BOBJS	=	$(addprefix $(BODIR)/,$(BSRCS:.c=.o))
 
-clean:
-			@make -C $(LIB_DIR) clean
-			@make -C ${MLX_DIR} clean
-			@${RM} ${OBJS}
-			@echo "${GREEN}[ OK ]${RED}	*.o files	deleted${NC}"
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
-fclean:		clean
-			@make -C $(LIB_DIR) fclean
-			@echo "${GREEN}[ OK ]${RED}	libft.a		deleted${NC}"
-			@${RM} ${NAME}
-			@echo "${GREEN}[ OK ]${RED}everything	deleted${NC}"
+CC		:=	clang
 
-re :		fclean all
+WFLAGS	:=	-MMD -Wall -Wextra -Werror
 
-.PHONY:		all	clean	fclean re
+WCONV	:=	-Wconversion
+
+GFLAG	:=	-g3
+
+SANFLAG	:=	-fsanitize=address
+
+AR		:=	ar
+
+ARFLAGS	:=	rcs
+
+XFLAGS	:=	-lXext -lX11
+
+MFLAG	:=	-lm
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::HEADERS::
+
+LINC	=	$(addprefix $(LDIR)/,inc)
+
+PFINC	=	$(addprefix $(PFDIR)/,inc))
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LIBRARY::
+
+IS_LIBFT	:=	true
+
+LIB			:=	libft.a
+
+LIBTF_PATH	=	$(addprefix $(LDIR)/, ${LIB})
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::FT_PRINTF::
+
+IS_PRINTF	:=	false
+
+PRINTF		:=	libftprintf.a
+
+PRINTF_PATH	=	$(addprefix $(PFDIR)/, $(PRINTF))
+
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MINILIBX::
+
+IS_MINILIBX	:=	true
+
+MLX			:=	libmlx_$(shell uname).a
+
+MLX_PATH	=	$(addprefix $(MDIR)/, ${MLX})
+
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COLORS::
+
+NO_COLOR		=	\033[m
+
+BLACK			=	\033[0;30m
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+ORANGE 		 	=	\033[0;33m
+BLUE			=	\033[0;34m
+PURPLE			=	\033[0;35m
+CYAN			=	\033[0;36m
+WHITE			= 	\033[0;37m
+
+# High Intensty
+HIGREEN			=	\033[0;92m
+HIORANGE	 	=	\033[0;93m
+HIPURPLE		=	\033[0;95m
+
+# Bold
+BORANGE 		=	\033[1;33m
+BBLUE			=	\033[1;34m
+BPURPLE			=	\033[1;35m
+BCYAN			=	\033[1;36m
+
+# Bold High Intensity
+BHIGREEN		=	\033[1;92m
+BHIORANGE	 	=	\033[1;93m
+BHIPURPLE		=	\033[1;95m
+
+# Italic
+ICYAN			=	\033[3;36m
+
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARAMS::
+
+INCLUDE_FLAGS		=	$(addprefix -I , $(IDIR))
+
+ifeq ($(IS_LIBFT),true)
+	INCLUDE_FLAGS	+=	$(addprefix -I , $(LINC))
+endif
+
+ifeq ($(IS_PRINTF), true)
+	INCLUDE_FLAGS	+= $(addprefix -I , $(PFINC))
+endif
+
+ifeq ($(IS_MINILIBX), true)
+	INCLUDE_FLAGS	+= $(addprefix -I , $(MDIR))
+endif
+
+DEPS				= $(OBJS:.o=.d)
+BDEPS				= $(BOBJS:.o=.d)
+
+vpath %.c $(SDIR)\
+		$(BDIR)\
+		$(addprefix $(SDIR)/,parsing)\
+		$(addprefix $(SDIR)/,controls)\
+		$(addprefix $(SDIR)/,drawing)\
+		$(addprefix $(SDIR)/,init)
+vpath %.o $(ODIR)\
+		$(BODIR)
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MANDATORY::
+
+all:			header lib h2 message $(NAME)
+
+$(ODIR)/%.o:	%.c 
+	@$(CC) $(WFLAGS) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+
+$(NAME):		$(OBJS)	
+	@$(CC) $(WFLAGS) $(GFLAG) $(OBJS) $(LIBTF_PATH) $(MLX_PATH) $(XFLAGS) $(MFLAG) -o $(NAME)
+	@echo "$(HIGREEN)mandatory exe:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+
+$(OBJS):		| $(ODIR)
+
+$(ODIR):
+	@mkdir -p $(ODIR)
+	@echo "$(HIGREEN)objs folder:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BONUS::
+
+bonus:			header lib h3 message_b $(BNAME)
+
+$(BODIR)/%.o:	%.c 
+	@$(CC) $(WFLAGS) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@echo "$(HIGREEN)bonus compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
+
+$(BNAME):		$(BOBJS)
+	@$(CC) $(GFLAGS) $(SANFLAG) $(BOBJS) $(LIBTF_PATH) $(MLX_PATH) $(XFLAGS) $(MFLAG) -o $(BNAME)
+	@echo "$(HIGREEN)bonus exe:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+
+$(BOBJS):		| $(BODIR)
+
+$(BODIR):
+	@mkdir -p $(BODIR)
+	@echo "$(HIGREEN)objs_bonus folder:\t\t\t\t\t[OK]$(NO_COLOR)"
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
+
+update:		header fclean
+	@git pull
+
+push:		header fclean fcleanlib
+	@echo "$(HIGREEN)"
+	@git add .
+	@git commit --quiet
+	@git push --quiet
+	@echo "$(HIGREEN)git push:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+
+clean:		header
+	@rm -rf $(ODIR)
+	@echo "$(HIORANGE)objs folder:\t\t\t\t\t\t[RM]$(NO_COLOR)"
+
+fclean:		header clean
+	@rm -f $(NAME)
+	@echo "$(HIORANGE)$(NAME) bin:\t\t\t\t\t\t[RM]$(NO_COLOR)"
+
+lib:
+ifeq ($(IS_LIBFT),true)
+	@make -C $(LDIR) --quiet
+endif
+ifeq ($(IS_PRINTF),true)
+	@make -C $(PFDIR) --quiet
+endif
+ifeq ($(IS_MINILIBX),true)
+	@make -C $(MDIR) --quiet 
+endif
+
+relib:	header
+ifeq ($(IS_LIBFT),true)
+	@make -C $(LDIR) --quiet re
+endif
+ifeq ($(IS_PRINTF),true)
+	@make -C $(PFDIR) --quiet re
+endif
+ifeq ($(IS_MINILIBX),true)
+	@make -C $(MDIR) --quiet re
+endif
+
+fcleanlib:	header
+ifeq ($(IS_LIBFT),true)
+	@make -C $(LDIR) --quiet fclean
+endif
+ifeq ($(IS_PRINTF),true)
+	@make -C $(PFDIR) --quiet fclean
+endif
+ifeq ($(IS_MINILIBX),true)
+	@make -C $(MDIR) --quiet clean
+endif
+
+header:
+	@echo "$(BHIPURPLE)"
+	@echo "   ______________________________________________________"
+	@echo "  /\     __________    ________    ___   ___    _______  \ "
+	@echo " /  \   /\         \  /\   __  \  /\  \ /\  \  /\  ____\  \ "
+	@echo "/    \  \ \  \ _/\  \ \ \   __  \ \ \  \ /_ /_ \ \  _\_/_  \ "
+	@echo "\     \  \ \__\_/ \__\ \ \__\-\__\ \ \__\  \__\ \ \______\  \ "
+	@echo " \     \  \/__/  \/__/  \/__/ /__/  \/__/ \/__/  \/______/   \ "
+	@echo "  \     \_____________________________________________________\ "
+	@echo "   \    /                                                     / "
+	@echo "    \  /         $(CYAN) A B O N A R D  &&  S E O Z C A N \$(NO_COLOR)$(BHIPURPLE)   ____   / "
+	@echo "     \/______________________________________________/\   \_/ "
+	@echo "                                                     \ \___\ "
+	@echo "                                                      \/___/ "
+	@echo "$(NO_COLOR)"
+
+h2:
+	@echo "\n$(BHIPURPLE):::::::::::::::::::::::::::::::::::::::::::::::::::::CUB3D::\n$(NO_COLOR)"
+
+message:
+	@make -q $(NAME) && echo "$(BHIGREEN)All files are already up to date$(NO_COLOR)" || true
+
+message_b:
+	@make -q $(BNAME) && echo "$(BHIGREEN)All bonus files are already up to date$(NO_COLOR)" || true
+
+re:		header fclean fcleanlib 
+	@make all 
+
+-include $(DEPS)
+
+.PHONY:	all bonus clean fclean re push update o_dir h1 h2 header 
