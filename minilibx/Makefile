@@ -10,13 +10,21 @@
 
 ## Please use configure script
 
+BPURPLE		=	\033[1;35m
+BGREEN		=	\033[1;92m
 
-all	: do_configure
+all	: h1 message do_configure
 
 do_configure	:
 	./configure
 
 clean	:
 	./configure clean
+h1:
+	@echo "\n$(BPURPLE)::::::::::::::::::::::::::::::::::::::::::::::::::MINILIBX::\n$(NO_COLOR)"
+	
+message:
+	@make -q $(NAME) && echo "$(BGREEN)All files are already up to date$(NO_COLOR)" || true
 
 re	: clean all
+
