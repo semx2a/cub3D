@@ -6,7 +6,7 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/08 19:48:37 by abonard           #+#    #+#              #
-#    Updated: 2022/09/19 14:07:45 by abonard          ###   ########.fr        #
+#    Updated: 2023/01/05 16:39:49 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ INCLUDES	=	./libft/inc/libft.h \
 
 HEAD		= ./inc/
 
-MLX 		= minilibx-linux/libmlx.a #minilibx-linux/libmlx_Linux.a
+MLX 		= minilibx-linux/libmlx_Linux.a
 
 MLX_DIR		= ./minilibx-linux/
 
@@ -56,9 +56,9 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror -g
 
-LFLAGS		= -framework OpenGL -framework AppKit #-lm -lX11 -lXext -lbsd
+LFLAGS		= -lm -lX11 -lXext -lbsd
 
-LINK		= -I /usr/X11/include -g -L /usr/X11/lib -lX11 -lmlx -lXext
+#LINK		= -I /usr/X11/include -g -L /usr/X11/lib -lX11 -lmlx -lXext
 
 .c.o:
 		@${CC} ${CFLAGS} -I${HEAD} -c $< -o ${<:.c=.o}
@@ -71,7 +71,7 @@ ${NAME}:	${OBJS}
 			@make -C ${MLX_DIR}
 			@echo "${GREEN}\nlibft.a		has been created"
 			@echo "${GREEN}\nlibmlx_Linux.a	has been created"
-			@${CC} ${CFLAGS} ${LFLAGS} ${LINK} -I${HEAD} -o ${NAME} $(OBJS) ${LIBFT} ${MLX}
+			@${CC} ${CFLAGS} ${LFLAGS} -I${HEAD} -o ${NAME} $(OBJS) ${LIBFT} ${MLX}
 			@echo "cub3d		has been created\n${NC}"
 
 clean:

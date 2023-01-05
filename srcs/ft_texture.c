@@ -9,11 +9,11 @@ int	ft_print_wall(t_game *game, int side, int y, int x)
 	color = 0;
 	while (y >= game->wall.draw_start && y < game->wall.draw_end)
 	{
-		tex_y = (int)(((y - game->res_y /
-			2 + game->wall.line_height / 2) *
-			game->tex.height[side]) / game->wall.line_height);
-		color = game->tex.tex[side][game->tex.width[side] *
-			(int)floor(tex_y) + game->tex.tex_x];
+		tex_y = (int)(((y - game->res_y
+						/ 2 + game->wall.line_height / 2)
+					* game->tex.height[side]) / game->wall.line_height);
+		color = game->tex.tex[side][game->tex.width[side]
+			* (int)floor(tex_y) + game->tex.tex_x];
 		ft_put_pixels(game, x, y, color);
 		++y;
 	}
@@ -23,23 +23,23 @@ int	ft_print_wall(t_game *game, int side, int y, int x)
 void	ft_wall_size(t_game *game)
 {
 	if (game->rays.side == 0)
-		game->rays.perp_wall_dist = (game->rays.map_x -
-			game->pos_px + (1.0 - (int)game->rays.step_x) / 2.0)
+		game->rays.perp_wall_dist = (game->rays.map_x
+				- game->pos_px + (1.0 - (int)game->rays.step_x) / 2.0)
 			/ game->rays.ray_dir_x;
 	else
-		game->rays.perp_wall_dist = (game->rays.map_y -
-			game->pos_py + (1 - (int)game->rays.step_y) / 2) /
-			game->rays.ray_dir_y;
+		game->rays.perp_wall_dist = (game->rays.map_y
+				- game->pos_py + (1 - (int)game->rays.step_y) / 2)
+			/ game->rays.ray_dir_y;
 	if (game->rays.perp_wall_dist < 0.005)
 		game->rays.perp_wall_dist = 0.005;
-	game->wall.line_height = (int)(game->res_y /
-		game->rays.perp_wall_dist);
-	game->wall.draw_start = (int)(game->wall.line_height / 2 +
-		game->res_y / 2);
+	game->wall.line_height = (int)(game->res_y
+			/ game->rays.perp_wall_dist);
+	game->wall.draw_start = (int)(game->wall.line_height / 2
+			+ game->res_y / 2);
 	if (game->wall.draw_start < 0)
 		game->wall.draw_start = 0;
-	game->wall.draw_end = (int)(game->wall.line_height / 2 +
-		game->res_y / 2);
+	game->wall.draw_end = (int)(game->wall.line_height / 2
+			+ game->res_y / 2);
 	if (game->wall.draw_end >= game->res_y)
 		game->wall.draw_end = game->res_y;
 }
@@ -92,8 +92,12 @@ void	ft_put_pixels(t_game *game, int x, int y, unsigned int color)
 {
 	unsigned int	*dst;
 
-	dst = game->wall.addr + (y * game->res_x + x);
-	*(unsigned int *)dst = color;
+	dst = NULL;
+	if (x < 800 && y < 600 && x >= 0 && y >= 0)
+	{
+		dst = game->wall.addr + (y * game->res_x + x);
+		*(unsigned int *)dst = color;
+	}
 }
 
 void	ft_print_texture(t_game *game, int x, int start, int end)

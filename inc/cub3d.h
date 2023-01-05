@@ -24,15 +24,15 @@
 
 typedef struct s_check
 {
-    int no;
-    int so;
-    int ea;
-    int we;
-    int f;
-    int c;
+	int	no;
+	int	so;
+	int	ea;
+	int	we;
+	int	f;
+	int	c;
 }t_check;
 
-typedef	struct		s_rays
+typedef	struct	s_rays
 {
 	float			cam_x;
 	float			ray_dir_x;
@@ -53,7 +53,7 @@ typedef	struct		s_rays
 	int				side;
 }					t_rays;
 
-typedef	struct		s_wall
+typedef	struct	s_wall
 {
 	void			*img;
 	unsigned int	*addr;
@@ -68,7 +68,7 @@ typedef	struct		s_wall
 	int				floor_color;
 }					t_wall;
 
-typedef	struct		s_tex
+typedef	struct	s_tex
 {
 	void			**img;
 	unsigned int	**addr;
@@ -87,53 +87,51 @@ typedef	struct		s_tex
 
 typedef struct s_game
 {
-    char **map;
-	int	**mappi;
-    void *mlix;
-    void *window;
-    int res_x;
-    int res_y;
-    float pos_px;
-    float pos_py;
-    float direction;
-    int k_up;
-    int k_down;
-    int k_left;
-    int k_right;
-    int k_left_rot;
-    int k_right_rot; //rotation
-    int k_esc; //escape
-    char        **textpath;
-    int         floor_c;
-    int         ceiling_c;
-    t_rays      rays;
-    t_tex       tex;
-    t_wall      wall;
-    t_check check;
+	char	**map;
+	int		**mappi;
+	void	*mlix;
+	void	*window;
+	int		res_x;
+	int		res_y;
+	float	pos_px;
+	float	pos_py;
+	float	direction;
+	int		k_up;
+	int		k_down;
+	int		k_left;
+	int		k_right;
+	int		k_left_rot;
+	int		k_right_rot; //rotation
+	int		k_esc; //escape
+	char	**textpath;
+	int		floor_c;
+	int		ceiling_c;
+	t_rays	rays;
+	t_tex	tex;
+	t_wall	wall;
+	t_check	check;
 
 }t_game;
 
-
-
-int ft_parcing(t_game *game, char *file);
-int ft_error(char *str);
-int ft_izmap(char *str);
-int ft_get_info(t_game *game, char *str);
-int ft_init(t_game *game);
-int ft_getcolors(t_game *game, char *str, int i);
-int ft_mapparcer(t_game *game, char **tab, int begining);
-int ft_replace_space(char **map, int i, unsigned long j);
-int ft_ismapclosed(char **map, int i, int j);
-int k_press(int keycode, t_game *game);
-int k_pop(int keycode, t_game *game);
-int k_exit(t_game *game);
-void    ft_get_resolution(t_game *game);
-void    ray_init(t_game *game);
-void ft_raycast(t_game *game);
-int load_texture(t_game *game);
-void    ft_wall_size(t_game *game);
-void    ft_print_texture(t_game *game, int x, int start, int end);
-void		ft_put_pixels(t_game *game, int x, int y, unsigned int color);
+int		ft_parcing(t_game *game, char *file);
+int		ft_error(char *str);
+int		ft_izmap(char *str);
+int		ft_get_info(t_game *game, char *str);
+int		ft_init(t_game *game);
+int		ft_getcolors(t_game *game, char *str, int i);
+int		ft_mapparcer(t_game *game, char **tab, int begining);
+int		ft_replace_space(char **map, int i, unsigned long j);
+int		ft_ismapclosed(char **map, int i, int j);
+int		k_press(int keycode, t_game *game);
+int		k_pop(int keycode, t_game *game);
+int		k_exit(t_game *game);
+void	ft_get_resolution(t_game *game);
+void	ray_init(t_game *game);
+void	ft_raycast(t_game *game);
+int		load_texture(t_game *game);
+void	ft_wall_size(t_game *game);
+void	ft_print_texture(t_game *game, int x, int start, int end);
+void	ft_put_pixels(t_game *game, int x, int y, unsigned int color);
 int		get_texture(t_game *game);
-void			ft_move(t_game *game);
+void	ft_move(t_game *game);
 #endif
