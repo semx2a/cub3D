@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-int		get_texture(t_game *game)
+int	get_texture(t_game *game)
 {
 	int		end;
 	int		i;
@@ -10,12 +10,12 @@ int		get_texture(t_game *game)
 	while (i < 4)
 	{
 		if (!(game->tex.img[i] = mlx_xpm_file_to_image(game->mlix,
-		game->textpath[i], &game->tex.width[i], &game->tex.height[i])))
+			game->textpath[i], &game->tex.width[i], &game->tex.height[i])))
 			return (ft_error("Texture doesn't download"));
 		game->tex.addr[i] = (unsigned int *)mlx_get_data_addr(game->tex.img[i],
-		&game->tex.bpp, &game->tex.line_length, &game->tex.endian);
+			&game->tex.bpp, &game->tex.line_length, &game->tex.endian);
 		if (!(game->tex.tex[i] = ft_calloc(game->tex.width[i] *
-		game->tex.height[i], sizeof(unsigned int))))
+				game->tex.height[i], sizeof(unsigned int))))
 			return (ft_error("Texture alloc memory failed"));
 		j = 0;
 		end = game->tex.width[i] * game->tex.height[i];

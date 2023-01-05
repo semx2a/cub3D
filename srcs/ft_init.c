@@ -1,29 +1,28 @@
 #include "../inc/cub3d.h"
 
-int ft_init(t_game *game)
+int	ft_init(t_game *game)
 {
-    game->map = NULL;
+	game->map = NULL;
 	game->mappi = NULL;
-    game->mlix = NULL;
-    game->window = NULL;
-    game->textpath = malloc(sizeof(char *) * 4);
-    if (game->textpath == NULL)
-        return (ft_error("Error: Cannot allocate texture from path, sorrey \n"));
-    game->textpath[4] = NULL;
-    game->check.no = 0;
-    game->check.so = 0;
-    game->check.ea = 0;
-    game->check.we = 0;
-    game->check.f = 0;
-    game->check.c = 0;
-
-    return (0);
+	game->mlix = NULL;
+	game->window = NULL;
+	game->textpath = malloc(sizeof(char *) * 4);
+	if (game->textpath == NULL)
+		return (ft_error("Error: Cannot allocate texture from path, sorrey \n"));
+	game->textpath[4] = NULL;
+	game->check.no = 0;
+	game->check.so = 0;
+	game->check.ea = 0;
+	game->check.we = 0;
+	game->check.f = 0;
+	game->check.c = 0;	
+	return (0);
 
 }
 
-void    init_dir_p(t_game *game)
+void	init_dir_p(t_game *game)
 {
-    float	dir;
+	float	dir;
 
 	dir = game->direction;
 	if (dir > (5 * M_PI) / 4 && dir < (7 * M_PI) / 4)
@@ -48,9 +47,9 @@ void    init_dir_p(t_game *game)
 	}
 }
 
-void    init_plan(t_game *game)
+void	init_plan(t_game *game)
 {
-    float	dir;
+	float	dir;
 
 	dir = game->direction;
 	if (dir > (5 * M_PI) / 4 && dir < (7 * M_PI) / 4)
@@ -75,9 +74,9 @@ void    init_plan(t_game *game)
 	}
 }
 
-void    ray_init(t_game *game)
+void	ray_init(t_game *game)
 {
-    game->rays.cam_x = 0.0;
+	game->rays.cam_x = 0.0;
 	game->rays.ray_dir_x = 0.0;
 	game->rays.ray_dir_y = 0.0;
 	game->rays.delta_dist_x = 0.0;
@@ -90,8 +89,8 @@ void    ray_init(t_game *game)
 	game->rays.map_x = 0;
 	game->rays.map_y = 0;
 	game->rays.side = 0;
-    init_dir_p(game);
-    init_plan(game);
+	init_dir_p(game);
+	init_plan(game);
 }
 
 static	void	text_init_2(t_game *game)
@@ -114,7 +113,7 @@ static	void	text_init_2(t_game *game)
 	game->tex.step = 0.0;
 }
 
-static	int		text_init(t_game *game, int i)
+static	int	text_init(t_game *game, int i)
 {
 	text_init_2(game);
 	if (!(game->tex.tex = (unsigned int **)
@@ -136,7 +135,7 @@ static	int		text_init(t_game *game, int i)
 	return (1);
 }
 
-void			wall_init(t_game *game)
+void	wall_init(t_game *game)
 {
 	game->wall.img = NULL;
 	game->wall.addr = 0;
@@ -151,12 +150,12 @@ void			wall_init(t_game *game)
 	game->wall.floor_color = 0;
 }
 
-int load_texture(t_game *game)
+int	load_texture(t_game *game)
 {
-   	int		end;
-	int		i;
-	int		j;
-	
+	int	end;
+	int	i;
+	int	j;
+
 	text_init(game, 0);
 	i = 0;
 	while (i < 4)
@@ -179,5 +178,5 @@ int load_texture(t_game *game)
 		++i;
 	}
 	wall_init(game);
-    return (0);
+	return (0);
 }
