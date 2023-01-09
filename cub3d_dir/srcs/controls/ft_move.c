@@ -27,19 +27,21 @@ static	void	move_up_down(t_game *game)
 	if (game->k_up == 1)
 	{
 		if (game->mappi[(int)game->pos_py]
-			[(int)(game->pos_px + game->rays.dir_x * MOVE_SPEED)] == 0)
+			[(int)(game->pos_px + game->rays.dir_x
+				* MOVE_SPEED)] == 0)
 			game->pos_px += game->rays.dir_x * MOVE_SPEED;
 		if (game->mappi[(int)(game->pos_py + game->rays.dir_y
-				* MOVE_SPEED + 1)][(int)game->pos_px] == 0)
+				* MOVE_SPEED)][(int)game->pos_px] == 0)
 			game->pos_py += game->rays.dir_y * MOVE_SPEED;
 	}
 	else if (game->k_down == 1)
 	{
 		if (game->mappi[(int)game->pos_py]
-			[(int)(game->pos_px - game->rays.dir_x * MOVE_SPEED)] == 0)
+			[(int)(game->pos_px - game->rays.dir_x
+				* MOVE_SPEED)] == 0)
 			game->pos_px -= game->rays.dir_x * MOVE_SPEED;
 		if (game->mappi[(int)(game->pos_py - game->rays.dir_y
-				* MOVE_SPEED + 1)][(int)game->pos_px] == 0)
+				* MOVE_SPEED)][(int)game->pos_px] == 0)
 			game->pos_py -= game->rays.dir_y * MOVE_SPEED;
 	}
 }
@@ -48,8 +50,10 @@ static	void	side_move(t_game *game)
 {
 	if (game->k_left == 1)
 	{
-		if (game->mappi[(int)(game->pos_py - game->rays.dir_x * MOVE_SPEED)]
-			[(int)(game->pos_px + game->rays.dir_y * MOVE_SPEED + 1)] == 0)
+		if (game->mappi[(int)(game->pos_py
+				- game->rays.dir_x * MOVE_SPEED)]
+			[(int)(game->pos_px + game->rays.dir_y *
+			MOVE_SPEED)] == 0)
 		{
 			game->pos_px += game->rays.dir_y * MOVE_SPEED;
 			game->pos_py -= game->rays.dir_x * MOVE_SPEED;
@@ -57,7 +61,8 @@ static	void	side_move(t_game *game)
 	}
 	else if (game->k_right == 1)
 	{
-		if (game->mappi[(int)(game->pos_py + game->rays.dir_x * MOVE_SPEED)]
+		if (game->mappi[(int)(game->pos_py
+				+ game->rays.dir_x * MOVE_SPEED)]
 			[(int)(game->pos_px - game->rays.dir_y * MOVE_SPEED)] == 0)
 		{
 			game->pos_px -= game->rays.dir_y * MOVE_SPEED;
