@@ -2,7 +2,6 @@
 
 int	k_press(int keycode, t_game *game)
 {
-	printf("key->%d\n", keycode);
 	if (keycode == KEY_W)
 		game->k_up = 1;
 	if (keycode == KEY_A)

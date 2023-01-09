@@ -12,7 +12,7 @@ int	ft_print_wall(t_game *game, int side, int y, int x)
 		tex_y = (int)(((y - game->res_y
 						/ 2 + game->wall.line_height / 2)
 					* game->tex.height[side]) / game->wall.line_height);
-		color = game->tex.tex[side][game->tex.width[side] 
+		color = game->tex.tex[side][game->tex.width[side]
 			* (int)floor(tex_y) + game->tex.tex_x];
 		ft_put_pixels(game, x, y, color);
 		++y;
@@ -33,7 +33,7 @@ void	ft_wall_size(t_game *game)
 		game->rays.perp_wall_dist = 0.005;
 	game->wall.line_height = (int)(game->res_y
 			/ game->rays.perp_wall_dist);
-	game->wall.draw_start = (int)(game->wall.line_height / 2
+	game->wall.draw_start = (int)(- game->wall.line_height / 2
 			+ game->res_y / 2);
 	if (game->wall.draw_start < 0)
 		game->wall.draw_start = 0;

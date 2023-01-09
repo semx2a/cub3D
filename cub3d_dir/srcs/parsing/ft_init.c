@@ -15,7 +15,7 @@ int	ft_init(t_game *game)
 	game->check.ea = 0;
 	game->check.we = 0;
 	game->check.f = 0;
-	game->check.c = 0;	
+	game->check.c = 0;
 	return (0);
 }
 
