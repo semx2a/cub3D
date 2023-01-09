@@ -6,31 +6,34 @@
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::INIT::
 
-//		main.c
-int		ft_error(char *str);
-
-//		ft_general utils.c
+//		window_init.c
 void	ft_get_resolution(t_game *game);
+void	ft_new_image(t_game *game);
+
+//		utils.c
+void	free_and_exit(void *ptr, char *err_msg);
+void	destroy(t_game *game);
+
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
-//		ft_parcing.c
-int		ft_parcing(t_game *game, char *file);
+//		ft_parsing.c
+int		ft_parsing(t_game *game, char *file);
 
 //		ft_init.c
 int		ft_init(t_game *game);
 
-//		ft_parcing_utils.c
+//		ft_parsing_utils.c
 int		ft_izmap(char *str);
 int		ft_get_info(t_game *game, char *str);
 
-//		ft_getcolors.c
+//		ft_get_colors.c
 int		ft_getcolors(t_game *game, char *str, int i);
 
-//		ft_mapparcer.c
-int		ft_mapparcer(t_game *game, char **tab, int begining);
+//		ft_map_parser.c
+int		ft_map_parser(t_game *game, char **tab, int begining);
 
-//		ft_mapparcer_utils.c
+//		ft_map_parser_utils.c
 int		ft_replace_space(char **map, int i, unsigned long j);
 int		ft_ismapclosed(char **map, int i, int j);
 

@@ -1,11 +1,5 @@
 #include "../inc/cub3d.h"
 
-int	ft_error(char *str)
-{
-	ft_putstr_fd(str, 2);
-	return (1);
-}
-
 void	ft_destroy_img(t_game *game)
 {
 	if (game->wall.img != NULL)
@@ -13,18 +7,6 @@ void	ft_destroy_img(t_game *game)
 		mlx_destroy_image(game->mlix, game->wall.img);
 		game->wall.img = NULL;
 	}
-}
-
-void	ft_new_image(t_game *game)
-{
-	game->wall.img = mlx_new_image(game->mlix, game->res_x, game->res_y);
-	if (!game->wall.img)
-	{
-		printf("Error\nGenerating new image failed\n");
-		exit(1);
-	}
-	game->wall.addr = (unsigned int *)mlx_get_data_addr(game->wall.img,
-			&game->wall.bpp, &game->wall.line_length, &game->wall.endian);
 }
 
 int	play_game(t_game *game)
@@ -43,7 +25,7 @@ int	ft_start(t_game *game)
 	ray_init(game);
 	game->mlix = mlx_init();
 	if (game->mlix == NULL)
-		return (ft_error("Error: mlix init failed"));
+		ft_error(ERR,  "Error: mlix init failed");
 	game->window = mlx_new_window(game->mlix, game->res_x, game->res_y, "cubmofo3d");
 	if (load_texture(game) != 0)
 		return (1);
@@ -64,12 +46,13 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (argc != 2)
-		return (ft_error("Error: Wrong number arguments, sorreyyy\n"));
+		ft_error(ERR,  "Error: Wrong number arguments, sorreyyy\n");
 	if (ft_init(&game) == 1)
 		return (1);
-	if (ft_parcing(&game, argv[1]) == 1)
+	if (ft_parsing(&game, argv[1]) == 1)
 		return (1);
 	ft_start(&game);
+	destroy(&game);
 	exit(1); //kharas les leaks
 	return (0);
 }

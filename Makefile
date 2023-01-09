@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2023/01/05 18:40:21 by abonard          ###   ########.fr        #
+#    Updated: 2023/01/09 15:49:44 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,19 +38,20 @@ BNAME	:=	cub3d_bonus
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS	:=	ft_general_utils.c \
-			ft_getcolors.c \
-			ft_get_texture.c \
-			ft_init.c \
-			ft_keycodes.c \
-			ft_mapparcer.c \
-			ft_mapparcer_utils.c \
-			ft_move.c \
-			ft_parcing.c \
-			ft_parcing_utils.c \
-			ft_raycast.c \
-			ft_texture.c \
-			main.c
+SRCS	:=	keycodes.c \
+			move.c \
+			raycaster.c \
+			texturizer.c \
+			main.c \
+			utils.c \
+			window_init.c \
+			color_loader.c \
+			parser.c \
+			parser_init.c \
+			parser_map.c \
+			parser_map_utils.c \
+			parser_utils.c \
+			texture_loader.c
 
 OBJS	=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 

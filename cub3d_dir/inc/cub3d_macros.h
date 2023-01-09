@@ -8,6 +8,7 @@
 
 //		ERRORS
 # define ERR			": Error\n"
+# define ERR_IMG		"Image generation failed"
 
 # define MAX 				50000
 # define KEY_A 				97
