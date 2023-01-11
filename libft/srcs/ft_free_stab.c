@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_stab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:01:56 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:16:05 by abonard          ###   ########.fr       */
+/*   Updated: 2023/01/11 19:11:31 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_free_stab(char **str)
 	int	i;
 
 	i = 0;
-	if (**str && *str && str)
+	if (str)
 	{
-		while (str[i] != 0)
+		while (str[i])
 		{
 			free(str[i]);
 			i++;

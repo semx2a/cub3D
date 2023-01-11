@@ -1,16 +1,15 @@
 #include "../inc/cub3d.h"
 
-void	free_and_exit(void *ptr, char *err_msg)
+void	*ft_xcalloc(size_t count, size_t size)
 {
-	free(ptr);
-	ft_error(ERR,  err_msg);
-}
+	void	*ptr;
 
-void	destroy(t_game *game)
-{
-	mlx_destroy_image(game->mlix, &game->wall);
-	mlx_clear_window(game->mlix, &game->window);
-	mlx_destroy_window(game->mlix, &game->window);
-	mlx_destroy_display(game->mlix);
-	game->window = NULL;
+	ptr = NULL;
+	ptr = ft_calloc(count, size);
+	if (!ptr)
+	{
+		errno = ENOMEM;
+		ft_error(ERR, NULL);
+	}
+	return (ptr);
 }

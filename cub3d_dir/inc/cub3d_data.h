@@ -39,8 +39,8 @@ typedef struct s_wall
 	void			*img;
 	unsigned int	*addr;
 	int				bpp;
-	int				line_length;
 	int				endian;
+	int				line_length;
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
@@ -52,41 +52,49 @@ typedef struct s_wall
 typedef struct s_tex
 {
 	void			**img;
+	unsigned int	**tex;
 	unsigned int	**addr;
 	int				bpp;
-	int				line_length;
 	int				endian;
+	int				line_length;
 	int				line_height;
 	int				width[4];
 	int				height[4];
-	unsigned int	**tex;
 	int				tex_x;
 	int				tex_y;
 	float			wall_x;
 	float			step;
 }	t_tex;
 
-typedef struct s_game
+typedef struct s_keys
 {
-	char	**map;
-	int		**mappi;
-	void	*mlix;
-	void	*window;
-	int		res_x;
-	int		res_y;
-	float	pos_px;
-	float	pos_py;
-	float	direction;
 	int		k_up;
 	int		k_down;
 	int		k_left;
 	int		k_right;
 	int		k_left_rot;
-	int		k_right_rot; //rotation
-	int		k_esc; //escape
-	char	**textpath;
+	int		k_right_rot;
+	int		k_esc;
+}	t_keys;
+
+typedef struct s_game
+{
+	char	**file_copy;
+	char	**map;
+	char	**path;
+	int		**mappi;
+	int		rgb[3];
+	size_t	tablen;
+	void	*mlx;
+	void	*win;
+	float	direction;
+	float	pos_px;
+	float	pos_py;	
+	int		res_x;
+	int		res_y;
 	int		floor_c;
 	int		ceiling_c;
+	t_keys	keys;
 	t_rays	rays;
 	t_tex	tex;
 	t_wall	wall;

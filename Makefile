@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2023/01/09 15:49:44 by seozcan          ###   ########.fr        #
+#    Updated: 2023/01/11 19:21:35 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,19 +38,23 @@ BNAME	:=	cub3d_bonus
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS	:=	keycodes.c \
-			move.c \
+SRCS	:=	controls.c \
+			camera.c \
+			dda_algo.c \
 			raycaster.c \
 			texturizer.c \
 			main.c \
+			main_free.c \
+			main_init.c \
 			utils.c \
 			window_init.c \
 			color_loader.c \
+			map_converter.c \
+			map_loader.c \
+			map_parser.c \
+			parser_texture.c \
+			parser_walls.c \
 			parser.c \
-			parser_init.c \
-			parser_map.c \
-			parser_map_utils.c \
-			parser_utils.c \
 			texture_loader.c
 
 OBJS	=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))

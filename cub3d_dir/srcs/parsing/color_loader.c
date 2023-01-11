@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-int	ft_basic_checkcolors(char *str)
+static void	simple_colorcheck(t_game *game, char *str)
 {
 	int	i;
 
@@ -8,61 +8,72 @@ int	ft_basic_checkcolors(char *str)
 	while (str[i])
 	{
 		if ((str[i] < '0' && str[i] > '9') && str[i] != ' ' && str[i] != ',')
-			ft_error(ERR,  "Invalid characters in color\n");
+			free_game(game, ERR_COLORS, false, true);
 		i++;
 	}
-	return (0);
 }
 
-int	ft_validcolor(t_game *game, int rgb[3], char *str)
+static void	is_validcolor(t_game *game, char *str)
 {
 	int	i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (rgb[i] < 0 || rgb[i] > 255)
-			ft_error(ERR, "That's not a color, sorrey\n");
+		if (game->rgb[i] < 0 || game->rgb[i] > 255)
+			free_game(game, ERR_RGB, false, true);
 		i++;
 	}
 	if (str[0] == 'F')
 	{
-		game->floor_c = (256 * 256 *rgb[0] + 256 * rgb[1] + rgb[2]);
+		game->floor_c = (256 * 256 * game->rgb[0] + 256 * game->rgb[1]
+				+ game->rgb[2]);
 		game->check.f++;
 	}
 	else if (str[0] == 'C')
 	{
-		game->ceiling_c = (256 * 256 *rgb[0] + 256 * rgb[1] + rgb[2]);
+		game->ceiling_c = (256 * 256 * game->rgb[0] + 256 * game->rgb[1]
+				+ game->rgb[2]);
 		game->check.c++;
 	}
-	return (0);
 }
 
-int	ft_getcolors(t_game *game, char *str, int i)
+static void	color_alloc(t_game *game, char **tab)
 {
-	char	**tab;
-	char	*tronc;
-	int		rgb[3];
+	char	*nb;
+	int		i;
 
-	if (ft_basic_checkcolors(str) == 1)
-		return (1);
-	tab = ft_split(str + 1, ',');
 	if (ft_tablen(tab) != 3)
-		ft_error(ERR, "Error: Colors size is way too big, sorrey\n");
+	{
+		ft_free_stab(tab);
+		free_game(game, ERR_RGBLEN, false, true);
+	}
+	i = 0;
 	while (tab[i])
 	{
-		tronc = ft_strtrim(tab[i], " ");
-		if (ft_strlen(tronc) > 3)
+		nb = ft_strtrim(tab[i], " ");
+		if (ft_strlen(nb) > 3)
 		{
 			ft_free_stab(tab);
-			free(tronc);
-			ft_error(ERR, "Error: Invalid colors, sorrey\n");
+			free(nb);
+			free_game(game, ERR_COLORS, false, true);
 		}
-		rgb[i] = ft_atoi(tronc);
-		free(tronc);
+		game->rgb[i] = ft_atoi(nb);
+		free(nb);
 		i++;
 	}
-	if (ft_validcolor(game, rgb, str) == 1)
-		return (1);
+}
+
+int	get_colors(t_game *game, char *str)
+{	
+	char	**tab;
+
+	simple_colorcheck(game, str);
+	tab = ft_split(str + 1, ',');
+	if (!tab)
+		free_game(game, ERR_MALLOC, false, true);
+	color_alloc(game, tab);
+	is_validcolor(game, str);
+	ft_free_stab(tab);
 	return (0);
 }

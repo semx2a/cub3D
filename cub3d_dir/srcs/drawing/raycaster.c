@@ -1,55 +1,29 @@
 #include "../inc/cub3d.h"
 
-int	which_plan(t_game *game)
+static void	ft_wall_size(t_game *game)
 {
-	int	side;
-
-	side = 0;
 	if (game->rays.side == 0)
-	{
-		if (game->rays.step_x < 0)
-			side = 3;
-		else
-			side = 1;
-	}
+		game->rays.perp_wall_dist = (game->rays.map_x
+				- game->pos_px + (1.0 - (int)game->rays.step_x) / 2.0)
+			/ game->rays.ray_dir_x;
 	else
-	{
-		if (game->rays.step_y > 0)
-			side = 0;
-		else
-			side = 2;
-	}
-	return (side);
+		game->rays.perp_wall_dist = (game->rays.map_y - game->pos_py
+				+ (1 - (int)game->rays.step_y) / 2) / game->rays.ray_dir_y;
+	if (game->rays.perp_wall_dist < 0.005)
+		game->rays.perp_wall_dist = 0.005;
+	game->wall.line_height = (int)(game->res_y
+			/ game->rays.perp_wall_dist);
+	game->wall.draw_start = (int)(-game->wall.line_height / 2
+			+ game->res_y / 2);
+	if (game->wall.draw_start < 0)
+		game->wall.draw_start = 0;
+	game->wall.draw_end = (int)(game->wall.line_height / 2
+			+ game->res_y / 2);
+	if (game->wall.draw_end >= game->res_y)
+		game->wall.draw_end = game->res_y;
 }
 
-void	dda_algorithm(t_game *game)
-{
-	int	hit;
-	int	side;
-
-	hit = 0;
-	while (hit == 0)
-	{
-		if (game->rays.side_dist_x < game->rays.side_dist_y)
-		{
-			game->rays.side_dist_x += game->rays.delta_dist_x;
-			game->rays.map_x += game->rays.step_x;
-			game->rays.side = 0;
-		}
-		else
-		{
-			game->rays.side_dist_y += game->rays.delta_dist_y;
-			game->rays.map_y += game->rays.step_y;
-			game->rays.side = 1;
-		}
-		if (game->mappi[(int)(game->rays.map_y)]
-		[(int)(game->rays.map_x)] == 1)
-			hit = 1;
-	}
-	side = which_plan(game);
-}
-
-void	step_and_side_dist(t_game *game)
+static void	step_and_side_dist(t_game *game)
 {
 	if (game->rays.ray_dir_x < 0)
 	{
@@ -77,7 +51,7 @@ void	step_and_side_dist(t_game *game)
 	}
 }
 
-void	init_raycast(t_game *game, int x)
+static void	init_raycast(t_game *game, int x)
 {
 	game->rays.cam_x = 2.0 * (float)(game->res_x - 1 - x)
 		/ (float)game->res_x - 1;
@@ -91,11 +65,12 @@ void	init_raycast(t_game *game, int x)
 	game->rays.delta_dist_y = fabs(1 / game->rays.ray_dir_y);
 }
 
-void	ft_raycast(t_game *game)
+int	render(t_game *game)
 {
 	int	i;
 
 	i = 0;
+	cam_move(game);
 	while (i < game->res_x)
 	{
 		init_raycast(game, i);
@@ -105,5 +80,6 @@ void	ft_raycast(t_game *game)
 		ft_print_texture(game, i, game->wall.draw_start, game->wall.draw_end);
 		i++;
 	}
-	return ;
+	mlx_put_image_to_window(game->mlx, game->win, game->wall.img, 0, 0);
+	return (0);
 }

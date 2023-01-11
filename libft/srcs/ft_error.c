@@ -6,20 +6,28 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:15:54 by seozcan           #+#    #+#             */
-/*   Updated: 2023/01/03 16:24:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2023/01/11 17:42:33 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-void	ft_error(char *bin_name, char *err_msg)
-{
+int	ft_error(char *bin_name, char *err_msg)
+{	
 	if (err_msg)
-	{
+	{	
 		ft_putstr_fd(bin_name, STDERR_FILENO);
-		perror(err_msg);
+		if (ft_strnstr(strerror(errno), "Success", 7) == 0)
+			perror(err_msg);
+		else
+		{
+			ft_putstr_fd(err_msg, 2);
+			write(2, "\n", 1);
+		}
 	}
 	else
 		perror(bin_name);
-	exit(errno);
+	if (!errno)
+		return (EXIT_FAILURE);
+	return (errno);
 }

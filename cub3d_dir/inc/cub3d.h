@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:07:31 by seozcan           #+#    #+#             */
-/*   Updated: 2023/01/02 20:40:03 by seozcan          ###   ########.fr       */
+/*   Updated: 2023/01/09 19:34:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 # define CUB3D_H
 
 //		LIBRARIES
+//		bool
+# include <stdbool.h>
+
+//		limits
+# include <limits.h>
+
 //		read, write, exit, close
 # include <unistd.h>
 

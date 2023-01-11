@@ -1,6 +1,18 @@
 #include "../inc/cub3d.h"
 
-int	ft_print_wall(t_game *game, int side, int y, int x)
+static void	ft_put_pixels(t_game *game, int x, int y, unsigned int color)
+{
+	unsigned int	*dst;
+
+	dst = NULL;
+	if (x < 800 && y < 600 && x >= 0 && y >= 0)
+	{
+		dst = game->wall.addr + (y * game->res_x + x);
+		*(unsigned int *)dst = color;
+	}
+}
+
+static int	ft_print_wall(t_game *game, int side, int y, int x)
 {
 	float			tex_y;
 	unsigned int	color;
@@ -12,7 +24,7 @@ int	ft_print_wall(t_game *game, int side, int y, int x)
 		tex_y = (int)(((y - game->res_y
 						/ 2 + game->wall.line_height / 2)
 					* game->tex.height[side]) / game->wall.line_height);
-		color = game->tex.tex[side][game->tex.width[side] 
+		color = game->tex.tex[side][game->tex.width[side]
 			* (int)floor(tex_y) + game->tex.tex_x];
 		ft_put_pixels(game, x, y, color);
 		++y;
@@ -20,30 +32,7 @@ int	ft_print_wall(t_game *game, int side, int y, int x)
 	return (y);
 }
 
-void	ft_wall_size(t_game *game)
-{
-	if (game->rays.side == 0)
-		game->rays.perp_wall_dist = (game->rays.map_x
-				- game->pos_px + (1.0 - (int)game->rays.step_x) / 2.0)
-			/ game->rays.ray_dir_x;
-	else
-		game->rays.perp_wall_dist = (game->rays.map_y - game->pos_py
-				+ (1 - (int)game->rays.step_y) / 2) / game->rays.ray_dir_y;
-	if (game->rays.perp_wall_dist < 0.005)
-		game->rays.perp_wall_dist = 0.005;
-	game->wall.line_height = (int)(game->res_y
-			/ game->rays.perp_wall_dist);
-	game->wall.draw_start = (int)(-game->wall.line_height / 2
-			+ game->res_y / 2);
-	if (game->wall.draw_start < 0)
-		game->wall.draw_start = 0;
-	game->wall.draw_end = (int)(game->wall.line_height / 2
-			+ game->res_y / 2);
-	if (game->wall.draw_end >= game->res_y)
-		game->wall.draw_end = game->res_y;
-}
-
-int	ft_get_plan(t_game *game)
+static int	ft_get_plan(t_game *game)
 {
 	int	side;
 
@@ -65,7 +54,7 @@ int	ft_get_plan(t_game *game)
 	return (side);
 }
 
-int	ft_calcul_x_text(t_game *game, int side)
+static int	ft_calcul_x_text(t_game *game, int side)
 {
 	int		tex_x;
 	float	wall_x;
@@ -85,18 +74,6 @@ int	ft_calcul_x_text(t_game *game, int side)
 	if (side == 3)
 		tex_x = game->tex.width[side] - tex_x - 1;
 	return (tex_x);
-}
-
-void	ft_put_pixels(t_game *game, int x, int y, unsigned int color)
-{
-	unsigned int	*dst;
-
-	dst = NULL;
-	if (x < 800 && y < 600 && x >= 0 && y >= 0)
-	{
-		dst = game->wall.addr + (y * game->res_x + x);
-		*(unsigned int *)dst = color;
-	}
 }
 
 void	ft_print_texture(t_game *game, int x, int start, int end)

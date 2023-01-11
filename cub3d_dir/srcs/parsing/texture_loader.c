@@ -1,32 +1,62 @@
 #include "../inc/cub3d.h"
 
-int	get_texture(t_game *game)
-{
-	int	end;
+static void	texture_init(t_game *game)
+{	
 	int	i;
-	int	j;
 
+	i = 0;
+	game->tex.img = (void **)ft_xcalloc(4, sizeof(void *));
+	if (!game->tex.img)
+		free_game(game, ERR_MALLOC, false, true);
+	game->tex.tex = (unsigned int **)ft_xcalloc(4, sizeof(unsigned int *));
+	if (!game->tex.tex)
+		free_game(game, ERR_MALLOC, false, true);
+	game->tex.addr = (unsigned int **)ft_xcalloc(4, sizeof(unsigned int *));
+	if (!game->tex.addr)
+		free_game(game, ERR_MALLOC, false, true);
+	while (i < 4)
+	{
+		game->tex.width[i] = 0;
+		game->tex.height[i] = 0;
+		i++;
+	}
+}
+
+static void	tex_alloc(t_game *game, int i)
+{
+	game->tex.img[i] = mlx_xpm_file_to_image(game->mlx,
+			game->path[i], &game->tex.width[i], &game->tex.height[i]);
+	if (!game->tex.img[i])
+	{
+		destroy_tex(game, i);
+		free_game(game, ERR_MLXPM, false, true);
+	}
+	game->tex.addr[i] = (unsigned int *)mlx_get_data_addr(game->tex.img[i],
+			&game->tex.bpp, &game->tex.line_length, &game->tex.endian);
+	if (!game->tex.addr[i])
+		free_game(game, ERR_MLXMEM, false, true);
+	game->tex.tex[i] = ft_xcalloc(game->tex.width[i] * game->tex.height[i],
+			sizeof(unsigned int));
+	if (!game->tex.tex[i])
+		free_game(game, ERR_MALLOC, false, true);
+}
+
+void	load_texture(t_game *game)
+{
+	int		i;
+	int		j;
+
+	texture_init(game);
 	i = 0;
 	while (i < 4)
 	{
-		game->tex.img[i] = mlx_xpm_file_to_image(game->mlix,
-				game->textpath[i], &game->tex.width[i], &game->tex.height[i]);
-		if (!game->tex.img[i])
-			ft_error(ERR, "Texture doesn't download");
-		game->tex.addr[i] = (unsigned int *)mlx_get_data_addr(game->tex.img[i],
-				&game->tex.bpp, &game->tex.line_length, &game->tex.endian);
-		game->tex.tex[i] = ft_calloc(game->tex.width[i] * game->tex.height[i],
-				sizeof(unsigned int));
-		if (!game->tex.tex[i])
-			ft_error(ERR, "Texture alloc memory failed");
+		tex_alloc(game, i);
 		j = 0;
-		end = game->tex.width[i] * game->tex.height[i];
-		while (j < end)
+		while (j < game->tex.width[i] * game->tex.height[i])
 		{
 			game->tex.tex[i][j] = game->tex.addr[i][j];
 			++j;
 		}
 		++i;
 	}
-	return (1);
 }

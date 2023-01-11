@@ -7,61 +7,64 @@
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::INIT::
 
 //		window_init.c
-void	ft_get_resolution(t_game *game);
-void	ft_new_image(t_game *game);
+void	window_init(t_game *game);
+void	img_init(t_game *game);
+
+//		main_init.c
+int		game_init(t_game *game);
+
+//		main_free.c
+void	destroy_tex(t_game *game, size_t len);
+void	free_game(t_game *game, char *err_msg, bool is_mlx, bool is_err);
 
 //		utils.c
-void	free_and_exit(void *ptr, char *err_msg);
-void	destroy(t_game *game);
-
+void	*ft_xcalloc(size_t count, size_t size);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
-//		ft_parsing.c
-int		ft_parsing(t_game *game, char *file);
+//		parser.c
+void	parser(t_game *game, char *file_path);
 
-//		ft_init.c
-int		ft_init(t_game *game);
+//		map_parser.c
+void	map_parser(t_game *game);
 
-//		ft_parsing_utils.c
-int		ft_izmap(char *str);
-int		ft_get_info(t_game *game, char *str);
+//		parser_walls.c
+void	check_walls(t_game *game);
 
-//		ft_get_colors.c
-int		ft_getcolors(t_game *game, char *str, int i);
+//		parser_texture.c
+void	load_paths(t_game *game);
 
-//		ft_map_parser.c
-int		ft_map_parser(t_game *game, char **tab, int begining);
+//		colors_loader.c
+int		get_colors(t_game *game, char *str);
 
-//		ft_map_parser_utils.c
-int		ft_replace_space(char **map, int i, unsigned long j);
-int		ft_ismapclosed(char **map, int i, int j);
+//		map_loader.c
+void	load_map(t_game *game);
 
-//		ft_init.c
-int		load_texture(t_game *game);
-void	ray_init(t_game *game);
+//		map_loader.c
+void	convert_map(t_game *game);
+
+//		texture_loader.c
+//int		get_texture(t_game *game);
+void	load_texture(t_game *game);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::CONTROLS::
 
-//		ft_keycodes.c
-int		k_press(int keycode, t_game *game);
-int		k_pop(int keycode, t_game *game);
-int		k_exit(t_game *game);
+//		contols.c
+int		close_window(t_game *game);
+void	controls_init(t_game *game);
 
-//		ft_move.c
-void	ft_move(t_game *game);
+//		move.c
+void	cam_move(t_game *game);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DRAWING::
 
-//		ft_raycast.c
-void	ft_raycast(t_game *game);
+//		raycaster.c
+int		render(t_game *game);
 
-//		ft_texture.c
-void	ft_wall_size(t_game *game);
+//		dda_algo.c
+void	dda_algorithm(t_game *game);
+
+//		texturizer.c
 void	ft_print_texture(t_game *game, int x, int start, int end);
-void	ft_put_pixels(t_game *game, int x, int y, unsigned int color);
-
-//		ft_get_texture.c
-int		get_texture(t_game *game);
 
 #endif
