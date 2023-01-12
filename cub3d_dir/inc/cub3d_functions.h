@@ -65,6 +65,6 @@ int		render(t_game *game);
 void	dda_algorithm(t_game *game);
 
 //		texturizer.c
-void	ft_print_texture(t_game *game, int x, int start, int end);
+void	draw_texture(t_game *game, int x, int start, int end);
 
 #endif

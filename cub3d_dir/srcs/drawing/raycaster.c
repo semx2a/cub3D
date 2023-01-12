@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-static void	ft_wall_size(t_game *game)
+static void	wall_size(t_game *game)
 {
 	if (game->rays.side == 0)
 		game->rays.perp_wall_dist = (game->rays.map_x
@@ -51,7 +51,7 @@ static void	step_and_side_dist(t_game *game)
 	}
 }
 
-static void	init_raycast(t_game *game, int x)
+static void	raycast_init(t_game *game, int x)
 {
 	game->rays.cam_x = 2.0 * (float)(game->res_x - 1 - x)
 		/ (float)game->res_x - 1;
@@ -73,11 +73,11 @@ int	render(t_game *game)
 	cam_move(game);
 	while (i < game->res_x)
 	{
-		init_raycast(game, i);
+		raycast_init(game, i);
 		step_and_side_dist(game);
 		dda_algorithm(game);
-		ft_wall_size(game);
-		ft_print_texture(game, i, game->wall.draw_start, game->wall.draw_end);
+		wall_size(game);
+		draw_texture(game, i, game->wall.draw_start, game->wall.draw_end);
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->wall.img, 0, 0);

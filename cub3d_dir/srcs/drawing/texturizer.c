@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-static void	ft_put_pixels(t_game *game, int x, int y, unsigned int color)
+static void	put_pixels(t_game *game, int x, int y, unsigned int color)
 {
 	unsigned int	*dst;
 
@@ -12,7 +12,7 @@ static void	ft_put_pixels(t_game *game, int x, int y, unsigned int color)
 	}
 }
 
-static int	ft_print_wall(t_game *game, int side, int y, int x)
+static int	draw_wall(t_game *game, int side, int y, int x)
 {
 	float			tex_y;
 	unsigned int	color;
@@ -26,13 +26,13 @@ static int	ft_print_wall(t_game *game, int side, int y, int x)
 					* game->tex.height[side]) / game->wall.line_height);
 		color = game->tex.tex[side][game->tex.width[side]
 			* (int)floor(tex_y) + game->tex.tex_x];
-		ft_put_pixels(game, x, y, color);
+		put_pixels(game, x, y, color);
 		++y;
 	}
 	return (y);
 }
 
-static int	ft_get_plan(t_game *game)
+static int	get_plan(t_game *game)
 {
 	int	side;
 
@@ -54,7 +54,7 @@ static int	ft_get_plan(t_game *game)
 	return (side);
 }
 
-static int	ft_calcul_x_text(t_game *game, int side)
+static int	calcul_x_text(t_game *game, int side)
 {
 	int		tex_x;
 	float	wall_x;
@@ -76,25 +76,23 @@ static int	ft_calcul_x_text(t_game *game, int side)
 	return (tex_x);
 }
 
-void	ft_print_texture(t_game *game, int x, int start, int end)
+void	draw_texture(t_game *game, int x, int start, int end)
 {
 	int	y;
-	int	text_y;
 	int	side;
 
 	y = 0;
-	side = ft_get_plan(game);
-	game->tex.tex_x = ft_calcul_x_text(game, side);
-	text_y = 0;
+	side = get_plan(game);
+	game->tex.tex_x = calcul_x_text(game, side);
 	while (y < start)
 	{
-		ft_put_pixels(game, x, y, game->ceiling_c);
+		put_pixels(game, x, y, game->ceiling_c);
 		++y;
 	}
-	y = ft_print_wall(game, side, y, x);
+	y = draw_wall(game, side, y, x);
 	while (y >= end && y < game->res_y)
 	{
-		ft_put_pixels(game, x, y, game->floor_c);
+		put_pixels(game, x, y, game->floor_c);
 		++y;
 	}
 }
