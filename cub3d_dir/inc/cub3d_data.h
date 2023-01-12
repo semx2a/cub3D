@@ -5,6 +5,7 @@
 
 typedef struct s_check
 {
+	int	total;
 	int	no;
 	int	so;
 	int	ea;
@@ -79,7 +80,7 @@ typedef struct s_keys
 
 typedef struct s_game
 {
-	char	**file_copy;
+	char	**filecp;
 	char	**map;
 	char	**path;
 	int		**mappi;

@@ -48,15 +48,15 @@ static void	load_file(t_game *game, char *file_path)
 	get_filelen(game, file_path);
 	ret = 1;
 	buf = NULL;
-	game->file_copy = NULL;
-	game->file_copy = (char **)ft_xcalloc((game->filelen + 1), sizeof(char *));
-	game->file_copy[game->filelen] = 0;
+	game->filecp = NULL;
+	game->filecp = (char **)ft_xcalloc((game->filelen + 1), sizeof(char *));
+	game->filecp[game->filelen] = 0;
 	i = 0;
 	fd = ft_open(".cub", file_path);
 	while (ret)
 	{
 		ret = get_next_line_r(fd, &buf);
-		game->file_copy[i] = ft_strdup(buf);
+		game->filecp[i] = ft_strdup(buf);
 		free(buf);
 		i++;
 	}

@@ -1,6 +1,6 @@
 #include "../../inc/cub3d.h"
 
-static void	check_paths(t_game *game)
+static void	check_params(t_game *game)
 {
 	if (game->check.no != 1)
 		free_game(game, ERR_TEXVIEW, false, true);
@@ -37,6 +37,7 @@ static int	get_path(t_game *game, char *str, char **path, int nb)
 		game->check.we++;
 	if (nb == 4)
 		game->check.ea++;
+	game->check.total++;
 	return (0);
 }
 
@@ -53,35 +54,39 @@ static void	ft_invalidchar(t_game *game, char *str)
 	}
 }
 
-void	load_paths(t_game *game)
+void	find_params(t_game *game)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	game->path = (char **)ft_xcalloc(5, sizeof(char *));
-	game->path[4] = 0;
-	while (game->file_copy[i])
+	while (game->filecp[i] && game->check.total != 6)
 	{
 		j = 0;
-		while (!ft_strchr("NOSWEAFC \n", game->file_copy[i][j]))
+		while (game->filecp[i][j] == ' ')
 			j++;
-//			free_game(game, "Map description should be at the end of the file", false, true);
-		if (game->file_copy[i][j] == 'N' && game->file_copy[i][j + 1] == 'O')
-			get_path(game, game->file_copy[i], &game->path[0], 1);
-		else if (game->file_copy[i][j] == 'S' && game->file_copy[i][j + 1] == 'O')
-			get_path(game, game->file_copy[i], &game->path[1], 2);
-		else if (game->file_copy[i][j] == 'W' && game->file_copy[i][j + 1] == 'E')
-			get_path(game, game->file_copy[i], &game->path[2], 3);
-		else if (game->file_copy[i][j] == 'E' && game->file_copy[i][j + 1] == 'A')
-			get_path(game, game->file_copy[i], &game->path[3], 4);
-		else if (game->file_copy[i][j] == 'F')
-			get_colors(game, game->file_copy[i]);
-		else if (game->file_copy[i][j] == 'C')
-			get_colors(game, game->file_copy[i]);
+		if (game->filecp[i][j] == 'N' && game->filecp[i][j + 1] == 'O')
+			get_path(game, game->filecp[i] + j, &game->path[0], 1);
+		else if (game->filecp[i][j] == 'S' && game->filecp[i][j + 1] == 'O')
+			get_path(game, game->filecp[i] + j, &game->path[1], 2);
+		else if (game->filecp[i][j] == 'W' && game->filecp[i][j + 1] == 'E')
+			get_path(game, game->filecp[i] + j, &game->path[2], 3);
+		else if (game->filecp[i][j] == 'E' && game->filecp[i][j + 1] == 'A')
+			get_path(game, game->filecp[i] + j, &game->path[3], 4);
+		else if (game->filecp[i][j] == 'F')
+			get_colors(game, game->filecp[i] + j);
+		else if (game->filecp[i][j] == 'C')
+			get_colors(game, game->filecp[i] + j);
 		else
-			ft_invalidchar(game, game->file_copy[i]);
+			ft_invalidchar(game, game->filecp[i]);
 		i++;
 	}
-	check_paths(game);
+}
+
+void	load_paths(t_game *game)
+{
+	game->path = (char **)ft_xcalloc(5, sizeof(char *));
+	game->path[4] = 0;
+	find_params(game);
+	check_params(game);
 }

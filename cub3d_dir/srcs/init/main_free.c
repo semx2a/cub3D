@@ -47,8 +47,8 @@ void	free_game(t_game *game, char *err_msg, bool is_mlx, bool is_err)
 		ft_error(ERR, err_msg);
 	if (is_mlx)
 		destroy(game);
-	if (game->file_copy != NULL)
-		ft_free_stab(game->file_copy);
+	if (game->filecp != NULL)
+		ft_free_stab(game->filecp);
 	if (game->map != NULL)
 		ft_free_stab(game->map);
 	if (game->path != NULL)

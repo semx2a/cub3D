@@ -23,19 +23,19 @@ void	load_map(t_game *game)
 	int		j;
 
 	i = 0;
-	while (!is_map(game->file_copy[i]))
+	while (!is_map(game->filecp[i]))
 		i++;
-	maplen = ft_tablen(game->file_copy + i);
+	maplen = ft_tablen(game->filecp + i);
 	game->map = (char **)ft_xcalloc(maplen + 1, sizeof(char *));
 	game->map[maplen] = 0;
 	j = 0;
-	while (game->file_copy[i] && is_map(game->file_copy[i]))
+	while (game->filecp[i] && is_map(game->filecp[i]))
 	{
-		game->map[j] = ft_strdup(game->file_copy[i]);
+		game->map[j] = ft_strdup(game->filecp[i]);
 		if (game->map[j] == NULL)
 		{
 			ft_free_stab(game->map);
-			ft_free_stab(game->file_copy);
+			ft_free_stab(game->filecp);
 			free_game(game, ERR_MAPALLOC, false, true);
 		}
 		i++;

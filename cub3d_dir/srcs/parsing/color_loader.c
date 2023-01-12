@@ -44,6 +44,7 @@ static void	is_validcolor(t_game *game, char *str)
 				+ game->rgb[2]);
 		game->check.c++;
 	}
+	game->check.total++;
 }
 
 static void	color_alloc(t_game *game, char **tab)
