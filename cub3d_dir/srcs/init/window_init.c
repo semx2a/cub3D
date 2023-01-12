@@ -13,8 +13,8 @@ void	img_init(t_game *game)
 
 void	window_init(t_game *game)
 {	
-	game->res_x = 800;
-	game->res_y = 600;
+	game->res_x = 1500;
+	game->res_y = 1200;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		free_game(game, ERR_MLXINIT, true, true);

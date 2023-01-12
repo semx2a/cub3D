@@ -5,11 +5,8 @@ static void	put_pixels(t_game *game, int x, int y, unsigned int color)
 	unsigned int	*dst;
 
 	dst = NULL;
-	if (x < 800 && y < 600 && x >= 0 && y >= 0)
-	{
-		dst = game->wall.addr + (y * game->res_x + x);
-		*(unsigned int *)dst = color;
-	}
+	dst = game->wall.addr + (y * game->res_x + x);
+	*(unsigned int *)dst = color;
 }
 
 static int	draw_wall(t_game *game, int side, int y, int x)
