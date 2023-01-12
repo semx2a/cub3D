@@ -5,7 +5,7 @@ static void	put_pixels(t_game *game, int x, int y, unsigned int color)
 	unsigned int	*dst;
 
 	dst = NULL;
-	dst = game->wall.addr + (y * game->res_x + x);
+	dst = game->wall.addr + (y * WIDTH + x);
 	*(unsigned int *)dst = color;
 }
 
@@ -18,7 +18,7 @@ static int	draw_wall(t_game *game, int side, int y, int x)
 	color = 0;
 	while (y >= game->wall.draw_start && y < game->wall.draw_end)
 	{
-		tex_y = (int)(((y - game->res_y
+		tex_y = (int)(((y - HEIGHT
 						/ 2 + game->wall.line_height / 2)
 					* game->tex.height[side]) / game->wall.line_height);
 		color = game->tex.tex[side][game->tex.width[side]
@@ -87,7 +87,7 @@ void	draw_texture(t_game *game, int x, int start, int end)
 		++y;
 	}
 	y = draw_wall(game, side, y, x);
-	while (y >= end && y < game->res_y)
+	while (y >= end && y < HEIGHT)
 	{
 		put_pixels(game, x, y, game->floor_c);
 		++y;

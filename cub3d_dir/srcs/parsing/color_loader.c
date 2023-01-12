@@ -3,10 +3,18 @@
 static void	simple_colorcheck(t_game *game, char *str)
 {
 	int	i;
+	int	comma;
 
 	i = 1;
+	comma = 0;
 	while (str[i])
 	{
+		if (str[i] == ',')
+		{
+			comma++;
+			if (comma > 2)
+				free_game(game, ERR_COLORS, false, true);
+		}
 		if ((str[i] < '0' && str[i] > '9') && str[i] != ' ' && str[i] != ',')
 			free_game(game, ERR_COLORS, false, true);
 		i++;

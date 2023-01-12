@@ -9,7 +9,9 @@ static int	check_sides(char **map)
 	while (map[i])
 	{
 		j = 0;
-		if (map[i][0] != '1')
+		while (map[i][j] == ' ' || map[i][j] == '\t')
+			j++;
+		if (map[i][j] != '1')
 			return (0);
 		while (map[i][j + 1])
 			j++;
@@ -33,19 +35,32 @@ static int	check_top(char **map, int i, unsigned long j)
 
 static int	check_bottom(char **map, int i, unsigned long j)
 {
-	int	ibis;
+	int	k;
 
-	ibis = i;
-	while (map[ibis + 1] && ft_strlen(map[ibis + 1]) > j
-		&& map[ibis + 1][j] != ' ')
-		ibis++;
-	while (i < ibis && map[i + 1])
+	k = i;
+	while (map[k + 1] && ft_strlen(map[k + 1]) > j && map[k + 1][j] != ' ')
+		k++;
+	while (i < k && map[i + 1])
 	{
 		if (map[i + 1][j] == '1')
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+void	print_wrong(char *str, int i, int j)
+{
+	int	k;
+
+	k = 0;
+	while (str[k])
+	{
+		printf("game->map[%d][%d] = %c\n", i, k, str[k]);
+		k++;
+		if (k == j)
+			printf("game->map[%d][%d] = \033[0;31m%c\n\033[m", i, k, str[k]);
+	}
 }
 
 void	check_walls(t_game *game)
@@ -64,10 +79,18 @@ void	check_walls(t_game *game)
 		{
 			if (game->map[i][j] != '1')
 			{
+				while (game->map[i][j] == ' ' || game->map[i][j] == '\t')
+					j++;
 				if (!check_top(game->map, i, j))
+				{
+					print_wrong(game->map[i], i, j);
 					free_game(game, ERR_MTOP, false, true);
+				}
 				else if (!check_bottom(game->map, i, j))
+				{
+					print_wrong(game->map[i], i, j);
 					free_game(game, ERR_MBOTTOM, false, true);
+				}
 			}
 			j++;
 		}

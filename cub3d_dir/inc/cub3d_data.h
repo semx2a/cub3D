@@ -90,8 +90,6 @@ typedef struct s_game
 	float	direction;
 	float	pos_px;
 	float	pos_py;	
-	int		res_x;
-	int		res_y;
 	int		floor_c;
 	int		ceiling_c;
 	t_keys	keys;

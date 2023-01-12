@@ -11,16 +11,16 @@ static void	wall_size(t_game *game)
 				+ (1 - (int)game->rays.step_y) / 2) / game->rays.ray_dir_y;
 	if (game->rays.perp_wall_dist < 0.005)
 		game->rays.perp_wall_dist = 0.005;
-	game->wall.line_height = (int)(game->res_y
+	game->wall.line_height = (int)(HEIGHT
 			/ game->rays.perp_wall_dist);
 	game->wall.draw_start = (int)(-game->wall.line_height / 2
-			+ game->res_y / 2);
+			+ HEIGHT / 2);
 	if (game->wall.draw_start < 0)
 		game->wall.draw_start = 0;
 	game->wall.draw_end = (int)(game->wall.line_height / 2
-			+ game->res_y / 2);
-	if (game->wall.draw_end >= game->res_y)
-		game->wall.draw_end = game->res_y;
+			+ HEIGHT / 2);
+	if (game->wall.draw_end >= HEIGHT)
+		game->wall.draw_end = HEIGHT;
 }
 
 static void	step_and_side_dist(t_game *game)
@@ -53,8 +53,8 @@ static void	step_and_side_dist(t_game *game)
 
 static void	raycast_init(t_game *game, int x)
 {
-	game->rays.cam_x = 2.0 * (float)(game->res_x - 1 - x)
-		/ (float)game->res_x - 1;
+	game->rays.cam_x = 2.0 * (float)(WIDTH - 1 - x)
+		/ (float)WIDTH - 1;
 	game->rays.ray_dir_x = game->rays.dir_x + game->rays.plane_x
 		* game->rays.cam_x;
 	game->rays.ray_dir_y = game->rays.dir_y + game->rays.plane_y
@@ -71,7 +71,7 @@ int	render(t_game *game)
 
 	i = 0;
 	cam_move(game);
-	while (i < game->res_x)
+	while (i < WIDTH)
 	{
 		raycast_init(game, i);
 		step_and_side_dist(game);

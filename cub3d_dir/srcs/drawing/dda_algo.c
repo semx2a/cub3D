@@ -25,7 +25,7 @@ static int	which_plan(t_game *game)
 void	dda_algorithm(t_game *game)
 {
 	int	hit;
-//	int	side;
+
 
 	hit = 0;
 	while (hit == 0)
@@ -46,5 +46,5 @@ void	dda_algorithm(t_game *game)
 		[(int)(game->rays.map_x)] == 1)
 			hit = 1;
 	}
-/*	side = */which_plan(game);
+	which_plan(game);
 }

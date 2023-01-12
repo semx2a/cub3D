@@ -59,4 +59,10 @@
 # define MOVE_SPEED			0.08
 # define ROT_SPEED			0.05
 
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::WINDOW::
+
+# define HEIGHT				1200
+# define WIDTH				1500
+
+
 #endif

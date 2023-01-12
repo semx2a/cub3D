@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2023/01/11 18:58:24 by seozcan          ###   ########.fr        #
+#    Updated: 2023/01/12 17:49:50 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,7 +143,7 @@ HIPURPLE		=	\033[0;95m
 
 # Bold
 BORANGE 		=	\033[1;33m
-BBLUE			=	\033[1;34m
+BBLUE			=	\033[1;34m$(SANFLAG)
 BPURPLE			=	\033[1;35m
 BCYAN			=	\033[1;36m
 
@@ -163,7 +163,7 @@ vpath %.o $(ODIR)
 all:			header message $(NAME)
 
 $(ODIR)/%.o:	%.c
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) -I $(IDIR) -c $< -o $@
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) -I $(IDIR) -c $< -o $@
 	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)
