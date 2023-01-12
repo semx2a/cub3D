@@ -2,9 +2,21 @@ NO ./assets/tile131.xpm
 SO ./assets/tile087.xpm
 WE ./assets/door_blue.xpm
 EA ./assets/tile095.xpm
-S ./assets/tile133.xpm
 F       50,         52,          00
 C 10, 20, 25
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 111111111111111111111111111111111111111
 100000000000000000000000000000000000001

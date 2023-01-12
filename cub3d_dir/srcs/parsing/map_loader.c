@@ -5,16 +5,13 @@ int	is_map(char *str)
 	int	i;
 
 	i = 0;
-	if (str)
+	if (!str[i])
+		return (0);
+	while (str[i])
 	{
-		while (str[i])
-		{
-			while (str[i] == ' ' || str[i] == '\t')
-				i++;
-			if (str[i] != '1' && str[i] != '0')
-				return (0);
-			i++;
-		}
+		if (str[i] != '1' && str[i] != '0' && str[i] != ' ')
+			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -44,5 +41,4 @@ void	load_map(t_game *game)
 		i++;
 		j++;
 	}
-	print_stab(game->map);
 }

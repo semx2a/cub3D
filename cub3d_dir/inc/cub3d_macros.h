@@ -44,7 +44,7 @@
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::KEYCODES::
 
-# define MAX 				1024
+# define MAX 				50000
 # define KEY_A 				97
 # define KEY_D 				100
 # define KEY_S 				115

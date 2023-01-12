@@ -85,6 +85,7 @@ typedef struct s_game
 	int		**mappi;
 	int		rgb[3];
 	size_t	tablen;
+	size_t	filelen;
 	void	*mlx;
 	void	*win;
 	float	direction;

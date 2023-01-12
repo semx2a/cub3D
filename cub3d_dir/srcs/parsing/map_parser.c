@@ -29,7 +29,7 @@ static void	assign_direction(t_game *game, int i, int j, int *pos)
 	*pos += 1;
 }
 
-/* static int	replace_space(char **map, int i, unsigned long j)
+static int	replace_space(char **map, int i, unsigned long j)
 {
 	if (map[i][j + 1] != '\0' && map[i][j + 1] != ' ' && map[i][j + 1] != '1')
 		return (1);
@@ -43,7 +43,7 @@ static void	assign_direction(t_game *game, int i, int j, int *pos)
 			return (1);
 	map[i][j] = '1';
 	return (0);
-} */
+}
 
 void	map_parser(t_game *game)
 {
@@ -62,13 +62,14 @@ void	map_parser(t_game *game)
 				free_game(game, ERR_IMAP, false, true);
 			else if (is_token(game->map[i][j]) == 2)
 				assign_direction(game, i, j, &pos);
-	//		else if (is_token(game->map[i][j]) == 3)
-	//			if (replace_space(game->map, i, j) == 1)
-	//				free_game(game, ERR_MSPACE, false, true);
+			else if (is_token(game->map[i][j]) == 3)
+				if (replace_space(game->map, i, j) == 1)
+					free_game(game, ERR_MSPACE, false, true);
 			j++;
 		}
 		i++;
 	}
+	print_stab(game->map);
 	printf("pos = %d\n", pos);
 	if (pos != 1)
 		free_game(game, ERR_PLAYER, false, true);

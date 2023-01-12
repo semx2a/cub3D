@@ -21,7 +21,49 @@ static int	ft_open(char *file_type, char *file_path)
 	return (fd);
 }
 
-void	load_file(t_game *game, char *file_path)
+static void	get_filelen(t_game *game, char *file_path)
+{	
+	int		fd;
+	int		ret;
+	char	*buf;
+
+	fd = ft_open(".cub", file_path);
+	ret = 1;
+	while (ret)
+	{
+		ret = get_next_line_r(fd, &buf);
+		free(buf);
+		game->filelen++;
+	}
+	close(fd);
+}
+
+static void	load_file(t_game *game, char *file_path)
+{	
+	int		fd;
+	int		ret;
+	int		i;
+	char	*buf;
+
+	get_filelen(game, file_path);
+	ret = 1;
+	buf = NULL;
+	game->file_copy = NULL;
+	game->file_copy = (char **)ft_xcalloc((game->filelen + 1), sizeof(char *));
+	game->file_copy[game->filelen] = 0;
+	i = 0;
+	fd = ft_open(".cub", file_path);
+	while (ret)
+	{
+		ret = get_next_line_r(fd, &buf);
+		game->file_copy[i] = ft_strdup(buf);
+		free(buf);
+		i++;
+	}
+	close(fd);
+}
+
+/* void	load_file(t_game *game, char *file_path)
 {
 	int		fd;
 	char	buff[MAX];
@@ -41,7 +83,7 @@ void	load_file(t_game *game, char *file_path)
 	game->file_copy = ft_split(buff, '\n');
 	if (!game->file_copy)
 		exit(ft_error(ERR, ERR_MALLOC));
-}
+} */
 
 void	parser(t_game *game, char *file_path)
 {		
