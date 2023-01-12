@@ -9,7 +9,8 @@ void	destroy_tex(t_game *game, size_t len)
 	{
 		while (i < len)
 		{
-			mlx_destroy_image(game->mlx, game->tex.img[i]);
+			if (game->tex.img[i])
+				mlx_destroy_image(game->mlx, game->tex.img[i]);
 			i++;
 		}
 	}

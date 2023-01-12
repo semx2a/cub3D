@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2023/01/12 21:35:19 by seozcan          ###   ########.fr        #
+#    Updated: 2023/01/12 22:31:26 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,11 +180,11 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(OBJS) $(LIBTF_PATH) $(MLX_PATH) $(XFLAGS) $(MFLAG) -o $(NAME)
+	@$(CC) $(WFLAGS) $(GFLAG) $(OBJS) $(LIBTF_PATH) $(MLX_PATH) $(XFLAGS) $(MFLAG) -o $(NAME)
 	@echo "$(HIGREEN)mandatory exe:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
@@ -198,11 +198,11 @@ $(ODIR):
 bonus:			header lib h3 message_b $(BNAME)
 
 $(BODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)bonus compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(BNAME):		$(BOBJS)
-	@$(CC) $(GFLAGS) $(SANFLAG) $(BOBJS) $(LIBTF_PATH) $(MLX_PATH) $(XFLAGS) $(MFLAG) -o $(BNAME)
+	@$(CC) $(GFLAGS) $(BOBJS) $(LIBTF_PATH) $(MLX_PATH) $(XFLAGS) $(MFLAG) -o $(BNAME)
 	@echo "$(HIGREEN)bonus exe:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(BOBJS):		| $(BODIR)

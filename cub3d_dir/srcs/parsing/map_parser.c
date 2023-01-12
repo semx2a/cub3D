@@ -53,6 +53,7 @@ void	map_parser(t_game *game)
 
 	i = 0;
 	pos = 0;
+
 	while (game->map[i])
 	{
 		j = 0;
@@ -69,9 +70,7 @@ void	map_parser(t_game *game)
 		}
 		i++;
 	}
-	print_stab(game->map);
-	printf("pos = %d\n", pos);
+	check_walls(game);
 	if (pos != 1)
 		free_game(game, ERR_PLAYER, false, true);
-	check_walls(game);
 }

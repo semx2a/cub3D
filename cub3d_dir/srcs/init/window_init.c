@@ -2,6 +2,9 @@
 
 void	img_init(t_game *game)
 {
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		free_game(game, ERR_MLXINIT, true, true);
 	game->wall.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->wall.img)
 		free_game(game, ERR_IMG, true, true);

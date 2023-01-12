@@ -15,7 +15,7 @@ static void	simple_colorcheck(t_game *game, char *str)
 			if (comma > 2)
 				free_game(game, ERR_COLORS, false, true);
 		}
-		if ((str[i] < '0' && str[i] > '9') && str[i] != ' ' && str[i] != ',')
+		if (!ft_strchr("0123456789, ", str[i]))
 			free_game(game, ERR_COLORS, false, true);
 		i++;
 	}

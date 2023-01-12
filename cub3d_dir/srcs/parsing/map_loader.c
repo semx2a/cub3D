@@ -9,7 +9,7 @@ int	is_map(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (str[i] != '1' && str[i] != '0' && str[i] != ' ')
+		if (!ft_strchr("NSWE10 ", str[i]))
 			return (0);
 		i++;
 	}
@@ -29,7 +29,7 @@ void	load_map(t_game *game)
 	game->map = (char **)ft_xcalloc(maplen + 1, sizeof(char *));
 	game->map[maplen] = 0;
 	j = 0;
-	while (game->file_copy[i])
+	while (game->file_copy[i] && is_map(game->file_copy[i]))
 	{
 		game->map[j] = ft_strdup(game->file_copy[i]);
 		if (game->map[j] == NULL)
