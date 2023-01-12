@@ -1,5 +1,21 @@
 #include "../inc/cub3d.h"
 
+void	print_wrong(char *str, int i, int j)
+{
+	int	k;
+
+	k = 0;
+	printf("game->map[%d] = [", i);
+	while (str[k])
+	{
+		printf("%c", str[k]);
+		k++;
+		if (k == j)
+			printf("\033[0;31m%c\033[m", str[k]);
+	}
+	printf("]\n");
+}
+
 static int	check_sides(char **map)
 {
 	int	i;
@@ -12,11 +28,17 @@ static int	check_sides(char **map)
 		while (map[i][j] == ' ' || map[i][j] == '\t')
 			j++;
 		if (map[i][j] != '1')
+		{
+			print_wrong(map[i], i, j);
 			return (0);
+		}
 		while (map[i][j + 1])
 			j++;
 		if (map[i][j] != '1')
+		{
+			print_wrong(map[i], i, j);
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -47,20 +69,6 @@ static int	check_bottom(char **map, int i, unsigned long j)
 		i++;
 	}
 	return (0);
-}
-
-void	print_wrong(char *str, int i, int j)
-{
-	int	k;
-
-	k = 0;
-	while (str[k])
-	{
-		printf("game->map[%d][%d] = %c\n", i, k, str[k]);
-		k++;
-		if (k == j)
-			printf("game->map[%d][%d] = \033[0;31m%c\n\033[m", i, k, str[k]);
-	}
 }
 
 void	check_walls(t_game *game)

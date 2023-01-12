@@ -5,11 +5,16 @@ int	is_map(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (str)
 	{
-		if (str[i] != '1' && str[i] != ' ' && str[i] != '\t')
-			return (0);
-		i++;
+		while (str[i])
+		{
+			while (str[i] == ' ' || str[i] == '\t')
+				i++;
+			if (str[i] != '1' && str[i] != '0')
+				return (0);
+			i++;
+		}
 	}
 	return (1);
 }
