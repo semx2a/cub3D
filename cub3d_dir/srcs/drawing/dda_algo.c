@@ -26,7 +26,6 @@ void	dda_algorithm(t_game *game)
 {
 	int	hit;
 
-
 	hit = 0;
 	while (hit == 0)
 	{

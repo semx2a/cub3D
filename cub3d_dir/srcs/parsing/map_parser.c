@@ -53,7 +53,6 @@ void	map_parser(t_game *game)
 
 	i = 0;
 	pos = 0;
-
 	while (game->map[i])
 	{
 		j = 0;

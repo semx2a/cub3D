@@ -9,6 +9,7 @@
 # define ERR			"Error\n"
 # define ERR_MALLOC		"Memory Allocation failed"
 # define ERR_COPY		"Content copy failed"
+
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MINILIBX::
 
 # define ERR_IMG		"Image generation failed"
@@ -63,6 +64,5 @@
 
 # define HEIGHT				1200
 # define WIDTH				1500
-
 
 #endif
