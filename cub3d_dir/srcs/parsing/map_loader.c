@@ -23,7 +23,7 @@ void	load_map(t_game *game)
 	int		j;
 
 	i = 0;
-	while (!is_map(game->filecp[i]))
+	while (game->filecp[i] && !is_map(game->filecp[i]))
 		i++;
 	maplen = ft_tablen(game->filecp + i);
 	game->map = (char **)ft_xcalloc(maplen + 1, sizeof(char *));
