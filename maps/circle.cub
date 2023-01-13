@@ -1,9 +1,9 @@
-NO ./assets/4.xpm
-SO ./assets/4.xpm
-WE ./assets/4.xpm
-EA ./assets/4.xpm
-F 0,0,0
-C 0,0,0
+NO ./assets/brick.xpm
+SO ./assets/brick.xpm
+WE ./assets/brick.xpm
+EA ./assets/brick.xpm
+F 245,170,55
+C 200,200,200
 
 
 
