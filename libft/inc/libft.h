@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2023/01/09 17:25:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:27:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
-typedef struct s_stack
+typedef struct s_double_list
 {
 	t_node	*head;
 	t_node	*tail;
-}	t_stack;
+}	t_double_list;
 
 int				ft_toupper(int c);
 int				ft_tolower(int c);
@@ -80,6 +80,7 @@ void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_calloc(size_t count, size_t size);
+void			*xmalloc(size_t size);
 void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
 void			print_stab(char **stab);
@@ -128,14 +129,14 @@ t_node			*node_map(t_node *nodes, void *(*f)(void *),
 size_t			node_size(t_node *n);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::STACKS::
-void			put_front(t_stack *stack, void *content);
-void			put_back(t_stack *stack, void *content);
-void			init_stack(t_stack *stack);
-void			free_stack(t_stack *stack);
-void			reverse(t_stack *s);
-void			rotate(t_stack *s);
-void			swap(t_stack *s);
-void			push(t_stack *a, t_stack *b);
-size_t			stack_size(t_stack *stack);
+void			putfront_double_list(t_double_list *double_list, void *content);
+void			putback_double_list(t_double_list *double_list, void *content);
+void			init_double_list(t_double_list *double_list);
+void			free_double_list(t_double_list *double_list);
+void			reverse(t_double_list *s);
+void			rotate(t_double_list *s);
+void			swap(t_double_list *s);
+void			push(t_double_list *a, t_double_list *b);
+size_t			double_list_size(t_double_list *double_list);
 
 #endif

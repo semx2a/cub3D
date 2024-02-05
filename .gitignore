@@ -1,16 +1,21 @@
-## Mlx related
-Makefile.gen
-/test/mlx-test
+### C ###
+
+# Project specific
+cub3D
 
 ## Editor
 .vscode/*
 *~
 \#*\#
 
-## Other
-.DS_STORE
+## Linux
+*.swp
 
+## macOS
+*.DS_Store
 
+## VSCODE
+.vscode/*
 
 ## Template from https://github.com/github/gitignore
 # Prerequisites
