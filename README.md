@@ -5,7 +5,7 @@ Cub3D is a group project that was inspired by the world-renowned 90's game and t
 
 ## Visuals
 
-![cub3D.gif](./.img/cub3D.gif)
+![cub3D.gif](./.img/cub3d.gif)
 
 ## Project Structure
 
