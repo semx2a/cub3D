@@ -55,7 +55,7 @@ Maps are provided in the `maps/` folder.
 - Developing a robust and well-structured C program.
 - Handling user interactions in a graphical environment.
 
-# Troubleshooting
+## Troubleshooting
 
 If the git submodules didn't clone properly, you can run the following commands to clone the submodules:
 
