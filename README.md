@@ -3,6 +3,10 @@
 ## Summary
 Cub3D is a group project that was inspired by the world-renowned 90's game and the first-ever First Person Shooter, Wolfenstein 3D. This project allowed us to explore the technique of ray-casting, where the objective was to create a dynamic view within a maze, and the ultimate goal was to find a way out.
 
+## Visuals
+
+![cub3D.gif](./.img/cub3D.gif)
+
 ## Project Structure
 
 The repository is organized with the following structure:
