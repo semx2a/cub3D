@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2024/02/06 00:05:32 by seozcan          ###   ########.fr        #
+#    Updated: 2024/02/06 17:55:57 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,12 @@ $(DEP): $D%.d: $S%
 $(NAME): $(OBJ) $(DEP)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 	@echo "$(HIGREEN)compiling $(NAME):[OK]$(NO_COLOR)" | $(SPACE)
+
+debug:		all
+
+sanadd:		all
+
+santhread:	all
 
 lib:
 ifeq ($(IS_LIB),true)
