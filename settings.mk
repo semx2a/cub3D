@@ -13,20 +13,20 @@ UNAME	=	$(shell uname)
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCE::
 
-SRC		=	$(addprefix $Scontrols, \
+SRC		=	$(addprefix $Scontrols/, \
 				camera.c \
 				controls.c) \
-			$(addprefix $Sdrawing, \
+			$(addprefix $Sdrawing/, \
 				dda_algo.c \
 				raycaster.c \
 				texturizer.c) \
-			$(addprefix $Sinit, \
+			$(addprefix $Sinit/, \
 				main.c \
 				main_free.c \
 				main_init.c \
 				utils.c \
 				window_init.c) \
-			$(addprefix $Sparsing, \
+			$(addprefix $Sparsing/, \
 				color_loader.c \
 				map_converter.c \
 				map_loader.c \
