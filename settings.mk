@@ -5,29 +5,28 @@ ifndef SETTINGS_MK
 
 NAME	=	cub3D
 
+ifeq ($(MAKECMDGOALS), bonus)
+NAME	=	
+endif
+
 UNAME	=	$(shell uname)
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCE::
 
-C 		=	$Scontrols/
-W 		=	$Sdrawing/
-N 		=	$Sinit/
-R 		=	$Sparsing/
-
-SRC		=	$(addprefix $C, \
+SRC		=	$(addprefix $Scontrols, \
 				camera.c \
 				controls.c) \
-			$(addprefix $W, \
+			$(addprefix $Sdrawing, \
 				dda_algo.c \
 				raycaster.c \
 				texturizer.c) \
-			$(addprefix $N, \
+			$(addprefix $Sinit, \
 				main.c \
 				main_free.c \
 				main_init.c \
 				utils.c \
 				window_init.c) \
-			$(addprefix $R, \
+			$(addprefix $Sparsing, \
 				color_loader.c \
 				map_converter.c \
 				map_loader.c \
@@ -39,7 +38,11 @@ SRC		=	$(addprefix $C, \
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
-CC		=	clang
+CC		=	gcc
+
+ifeq ($(UNAME), Darwin)
+CC	=	clang
+endif
 
 CFLAGS	=	-Wall -Wextra -Werror
 
